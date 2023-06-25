@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeResource {
+public class ApplicationController {
 
    @GetMapping("/")
     public String home(Authentication authentication) {
@@ -24,6 +24,12 @@ public class HomeResource {
         return "redirect:/login"; // Przekierowanie na stronę logowania w przypadku braku uwierzytelnienia
     }
 
+       @GetMapping("/login")
+    public String showLoginForm() {
+        return "login"; 
+    }
+    
+    
     @GetMapping("/user")
     public String user() {
         return "user";
