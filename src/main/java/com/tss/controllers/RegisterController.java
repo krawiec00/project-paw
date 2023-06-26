@@ -2,6 +2,7 @@ package com.tss.controllers;
 
 import com.tss.entities.User;
 import com.tss.repositories.UserRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,16 @@ public class RegisterController {
         return "register";
     }
 
-    @PostMapping
+@PostMapping
     public String registerUser(String username, String password) {
+        // Sprawdź, czy istnieje już użytkownik o podanej nazwie użytkownika
+        Optional<User> existingUser = userRepository.findByUserName(username);
+        if (existingUser.isPresent()) {
+            // Użytkownik o podanej nazwie użytkownika już istnieje, obsłuż ten przypadek
+            // Możesz wyświetlić odpowiedni komunikat lub przekierować na stronę błędu
+            return "redirect:/register?error";
+        }
+
         User newUser = new User();
         newUser.setUserName(username);
         newUser.setPassword(passwordEncoder.encode(password));

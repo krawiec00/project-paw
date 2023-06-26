@@ -1,18 +1,75 @@
-<!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Register</title>
-</head>
-<body>
-    <h1>Register New User</h1>
-    <form th:action="@{/register}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" /><br/><br/>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" /><br/><br/>
-        
-        <input type="submit" value="Register"/>
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Registration and Login System</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous"/>
+    </head>
+    <body>
+        <br/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">Login zajęty, podaj inną nazwę użytkownika</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="text-center">Rejestracja</h2>
+                        </div>
+                        <div class="card-body">
+                            <form
+                                method="post"
+                                role="form"
+                                th:action="@{/register}"
+                                class="form-horizontal"
+                                >
+                                <div class="form-group mb-3">
+                                    <label class="control-label"> Login</label>
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        class="form-control" placeholder="Podaj login"/>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label class="control-label"> Hasło</label>
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        class="form-control"
+                                        placeholder="Podaj hasło"
+                                        />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button type="submit" class="btn btn-primary" >Rejestruj</button>
+                                    <span> Posiadasz konto?
+                                        <a th:href="@{/login}">Zaloguj się tutaj</a>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
