@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Thymeleaf Page</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h2>Użytkownicy</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Login</th>
+                        <th>Rola</th>
+                        <th>Aktywny</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.userName}"></td>
+                        <td>
+                            <select th:model="${user.roles}">
+                                <option value="ROLE_USER" th:selected="${user.roles == 'ROLE_USER'}">USER</option>
+                                <option value="ROLE_ADMIN" th:selected="${user.roles == 'ROLE_ADMIN'}">ADMIN</option>
+                            </select>
+                        </td>
+                        <td>
+                            <center> <input type="checkbox" th:checked="${user.active}"/></center>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <a href="/ProjektPAW/admin">Strona główna</a><br/>
+
+    </body>
+</html>
