@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Dodawanie użytkownika</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <div align="center">
+            <form th:action="@{/edituser/{id}(id=${user.id})}" method="post">
+                <div>
+                    <label for="id">Identyfikator</label>
+                    <input type="text" name="id" id="id" placeholder="Identyfikator" th:value="${user.id}" readonly="readonly"/>
+                </div><br/>
+                <div>
+                    <label for="userName">Login</label>
+                    <input type="text" name="userName" id="userName" placeholder="Imię" th:value="${user.userName}" readonly="readonly"/>
+                </div><br/>
+                <div>
+                    <input type="text" name="password" id="password" placeholder="Nazwisko" th:value="${user.password}" readonly="readonly" hidden="hidden"/>
+                </div><br/>
+                <div>
+                    <label for="active">Aktywny: </label>
+                    <input type="checkbox" name="active" id="active" th:checked="${user.active}"/>
+                </div>
+                <div>
+                    <label for="roles">Rola:</label>
+                    <select name="roles" id="roles">
+                        <option value="ROLE_USER" th:selected="${user.roles == 'ROLE_USER'}">USER</option>
+                        <option value="ROLE_ADMIN" th:selected="${user.roles == 'ROLE_ADMIN'}">ADMIN</option>
+                    </select>
+                </div>
+
+                <br/>
+                <input type="submit" value="Edytuj"/>
+            </form>
+        </div>
+    </body>
+</html>

@@ -26,15 +26,16 @@
                     <tr th:each="user : ${users}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.userName}"></td>
+                        <td th:text="${user.roles}"></td>
+                        <td th:text="${user.active}"></td>
                         <td>
-                            <select th:model="${user.roles}">
-                                <option value="ROLE_USER" th:selected="${user.roles == 'ROLE_USER'}">USER</option>
-                                <option value="ROLE_ADMIN" th:selected="${user.roles == 'ROLE_ADMIN'}">ADMIN</option>
-                            </select>
-                        </td>
-                        <td>
-                            <center> <input type="checkbox" th:checked="${user.active}"/></center>
-                        </td>
+                            <a th:href="@{/showEditUserForm/{id}(id=${user.id})}">
+                                <button>Edytuj</button>
+                            </a>
+                            <a th:href="@{/deleteUser/{id}(id=${user.id})}">
+                                <button>Usuń</button>
+                            </a>
+                         </td>
                     </tr>
                 </tbody>
             </table>
