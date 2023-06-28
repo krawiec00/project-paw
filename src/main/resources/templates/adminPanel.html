@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Thymeleaf Page</title>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-        </style>
-    </head>
-    <body>
-        <div>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Thymeleaf Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <style>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="mt-4">
             <h2>Użytkownicy</h2>
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Login</th>
                         <th>Rola</th>
                         <th>Aktywny</th>
+                        <th>Akcje</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,19 +32,22 @@
                         <td th:text="${user.roles}"></td>
                         <td th:text="${user.active}"></td>
                         <td>
-                            <a th:href="@{/showEditUserForm/{id}(id=${user.id})}">
-                                <button>Edytuj</button>
-                            </a>
-                            <a th:href="@{/deleteUser/{id}(id=${user.id})}">
-                                <button>Usuń</button>
-                            </a>
-                         </td>
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/showEditUserForm/{id}(id=${user.id})}">
+                                    <button class="btn btn-primary btn-sm">Edytuj</button>
+                                </a>
+                                <a th:href="@{/deleteUser/{id}(id=${user.id})}">
+                                    <button class="btn btn-danger btn-sm">Usuń</button>
+                                </a>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <br/>
-        <a href="/ProjektPAW/admin">Strona główna</a><br/>
-
-    </body>
+        <a href="/ProjektPAW/admin" class="btn btn-secondary">Strona główna</a><br/>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
 </html>

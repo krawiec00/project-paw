@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Dodawanie użytkownika</title>
-        <meta charset="UTF-8"/>
-    </head>
-    <body>
-        <div align="center">
-            <form th:action="@{/edituser/{id}(id=${user.id})}" method="post">
-                <div>
-                    <label for="id">Identyfikator</label>
-                    <input type="text" name="id" id="id" placeholder="Identyfikator" th:value="${user.id}" readonly="readonly"/>
-                </div><br/>
-                <div>
-                    <label for="userName">Login</label>
-                    <input type="text" name="userName" id="userName" placeholder="Imię" th:value="${user.userName}" readonly="readonly"/>
-                </div><br/>
-                <div>
-                    <input type="text" name="password" id="password" placeholder="Nazwisko" th:value="${user.password}" readonly="readonly" hidden="hidden"/>
-                </div><br/>
-                <div>
-                    <label for="active">Aktywny: </label>
-                    <input type="checkbox" name="active" id="active" th:checked="${user.active}"/>
-                </div>
-                <div>
-                    <label for="roles">Rola:</label>
-                    <select name="roles" id="roles">
-                        <option value="ROLE_USER" th:selected="${user.roles == 'ROLE_USER'}">USER</option>
-                        <option value="ROLE_ADMIN" th:selected="${user.roles == 'ROLE_ADMIN'}">ADMIN</option>
-                    </select>
-                </div>
-
-                <br/>
-                <input type="submit" value="Edytuj"/>
-            </form>
+<head>
+    <title>Dodawanie użytkownika</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center">Edytuj użytkownika</h2>
+                <form th:action="@{/edituser/{id}(id=${user.id})}" method="post">
+                    <div class="form-group">
+                        <label for="id">Identyfikator</label>
+                        <input type="text" name="id" id="id" class="form-control" placeholder="Identyfikator" th:value="${user.id}" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="userName">Login</label>
+                        <input type="text" name="userName" id="userName" class="form-control" placeholder="Imię" th:value="${user.userName}" readonly="readonly"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="password" id="password" class="form-control" placeholder="Nazwisko" th:value="${user.password}" readonly="readonly" hidden="hidden"/>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="active" id="active" class="form-check-input" th:checked="${user.active}"/>
+                        <label class="form-check-label" for="active">Aktywny</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Rola:</label>
+                        <select name="roles" id="roles" class="form-control">
+                            <option value="ROLE_USER" th:selected="${user.roles == 'ROLE_USER'}">USER</option>
+                            <option value="ROLE_ADMIN" th:selected="${user.roles == 'ROLE_ADMIN'}">ADMIN</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edytuj</button>
+                    <a href="/ProjektPAW/adminPanel" class="btn btn-secondary">Powrót</a>
+                </form>
+            </div>
         </div>
-    </body>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
 </html>
