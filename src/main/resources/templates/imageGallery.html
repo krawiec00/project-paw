@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Image Gallery</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div>Image Gallery</div>
+    <div th:each="image : ${images}">
+        <img th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image"/>
+    </div>
+    <a th:href="@{/adminPanel}">Back to Admin Panel</a>
+</body>
+</html>

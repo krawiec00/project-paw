@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload Image</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div>Upload Image</div>
+    <form th:action="@{/uploadImage}" method="post" enctype="multipart/form-data">
+        <input type="file" name="imageFile" accept="image/*" />
+        <button type="submit">Upload</button>
+    </form>
+    <a th:href="@{/adminPanel}">Back to Admin Panel</a>
+</body>
+</html>
