@@ -2,10 +2,23 @@
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
-
+<style>
+        .image {
+            max-width: 200px;
+        }
+    </style>
     </head>
     <body>
         <div>USER</div>
+        <br/>
+<a th:href="@{/uploadImageForm2}">Upload Image</a>
+        <br/>
+<div th:each="image, i : ${images}">
+        <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
+        <div th:text="${titles[i.index]}"></div>
+        <div th:text="${contents[i.index]}"></div>
+    </div>
+<br/>
         <a th:href="@{/logout}">Wyloguj</a>
     </body>
 </html>

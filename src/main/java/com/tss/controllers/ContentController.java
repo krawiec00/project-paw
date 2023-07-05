@@ -32,6 +32,11 @@ public class ContentController {
         model.addAttribute("imageForm", new ImageForm());
         return "uploadImage";
     }
+    @GetMapping("/uploadImageForm2")
+    public String showUploadImageForm2(Model model) {
+        model.addAttribute("imageForm", new ImageForm());
+        return "uploadImage2";
+    }
 
     @PostMapping("/uploadImage")
 public String uploadImage(@ModelAttribute("imageForm") ImageForm imageForm, Image image , Model model) {
@@ -43,10 +48,30 @@ public String uploadImage(@ModelAttribute("imageForm") ImageForm imageForm, Imag
         image.setTitle(image.getTitle());
         image.setContent(image.getContent());
         imageRepository.save(image);
+        
+        
     } catch (IOException e) {
         // Handle the exception
     }
     return "redirect:/admin";
+}
+
+@PostMapping("/uploadImage2")
+public String uploadImageUser(@ModelAttribute("imageForm") ImageForm imageForm, Image image , Model model) {
+    try {
+        MultipartFile imageFile = imageForm.getImageFile();
+        byte[] imageData = imageFile.getBytes();
+
+        image.setImageData(imageData);
+        image.setTitle(image.getTitle());
+        image.setContent(image.getContent());
+        imageRepository.save(image);
+        
+        
+    } catch (IOException e) {
+        // Handle the exception
+    }
+    return "redirect:/user";
 }
 
     @GetMapping("/images")
@@ -64,7 +89,7 @@ public String showImages(Model model) {
     model.addAttribute("titles", images.stream().map(Image::getTitle).collect(Collectors.toList()));
     model.addAttribute("contents", images.stream().map(Image::getContent).collect(Collectors.toList()));
 
-    return "imageGallery";
+    return "admin";
 }
 
 

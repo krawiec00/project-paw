@@ -6,15 +6,15 @@
     </head>
     <body>
         <div>Upload Image</div>
-        <form th:action="@{/uploadImage}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/uploadImage2}" method="post" enctype="multipart/form-data">
             <input type="file" name="imageFile" accept="image/*" /><br/>
             
-            <input type="text" id="title" name="title" placeholder="Tytuł"/><br/>
+            <input type="text" id="title" name="title"/><br/>
             
-            <input type="text" id="content" name="content" placeholder="Opis"/><br/>
+            <input type="text" id="content" name="content"/><br/>
             
             <button type="submit">Upload</button>
         </form>
-        <a th:href="@{/admin}">Back to Admin Panel</a>
+        <a th:href="@{/user}">Back to User Panel</a>
     </body>
 </html>
