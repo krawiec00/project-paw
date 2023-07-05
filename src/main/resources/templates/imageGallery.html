@@ -3,12 +3,18 @@
 <head>
     <title>Image Gallery</title>
     <meta charset="UTF-8"/>
+     <style>
+        .image {
+            max-width: 200px;
+        }
+    </style>
 </head>
 <body>
-    <div>Image Gallery</div>
-    <div th:each="image : ${images}">
-        <img th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image"/>
+   <div th:each="image, i : ${images}">
+        <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
+        <div th:text="${titles[i.index]}"></div>
+        <div th:text="${contents[i.index]}"></div>
     </div>
-    <a th:href="@{/adminPanel}">Back to Admin Panel</a>
+    <a th:href="@{/admin}">Back to Admin Panel</a>
 </body>
 </html>

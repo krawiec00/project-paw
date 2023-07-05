@@ -3,7 +3,7 @@ package com.tss.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Image")
+@Table(name = "image")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,6 +11,26 @@ public class Image {
 
     @Lob
     private byte[] imageData;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    private String title;
+    
+    private String content;
 
     public Long getId() {
         return id;

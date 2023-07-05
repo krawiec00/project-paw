@@ -6,10 +6,7 @@ package com.tss.entities;
 
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author PC
- */
+
 public class ImageForm {
     private MultipartFile imageFile;
 
