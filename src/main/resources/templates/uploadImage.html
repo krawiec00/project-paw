@@ -1,20 +1,61 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Upload Image</title>
-        <meta charset="UTF-8"/>
-    </head>
-    <body>
-        <div>Upload Image</div>
-        <form th:action="@{/uploadImage}" method="post" enctype="multipart/form-data">
-            <input type="file" name="imageFile" accept="image/*" /><br/>
-            
-            <input type="text" id="title" name="title" placeholder="Tytuł"/><br/>
-            
-            <input type="text" id="content" name="content" placeholder="Opis"/><br/>
-            
-            <button type="submit">Upload</button>
-        </form>
-        <a th:href="@{/}">Wróć</a>
-    </body>
+<head>
+    <title>Upload Image</title>
+    <meta charset="UTF-8"/>
+    <!-- Dodaj Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="my-5">Upload Image</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form th:action="@{/uploadImage}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="imageFile">Select Image:</label>
+                        <input type="file" class="form-control-file" id="imageFile" name="imageFile" accept="image/*" />
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" />
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Description:</label>
+                        <textarea class="form-control" id="content" name="content" placeholder="Description" rows="5" maxlength="255"></textarea>
+                        <small id="charCount" class="form-text text-muted">0/255 characters</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+                <a th:href="@{/}" class="btn btn-secondary mt-3">Back to Previous Panel</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dodaj Bootstrap JS (Opcjonalnie, jeśli potrzebujesz funkcji JavaScript w Bootstrap) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        var contentTextarea = document.getElementById('content');
+        var charCount = document.getElementById('charCount');
+
+        contentTextarea.addEventListener('input', function () {
+            var currentLength = contentTextarea.value.length;
+            charCount.textContent = currentLength + '/255 characters';
+
+            if (currentLength > 255) {
+                contentTextarea.value = contentTextarea.value.substring(0, 255);
+                charCount.textContent = '255/255 characters';
+            }
+        });
+    </script>
+</body>
 </html>
