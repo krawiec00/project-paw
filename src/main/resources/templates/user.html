@@ -11,7 +11,7 @@
     <body>
         <div>USER</div>
         <br/>
-<a th:href="@{/uploadImageForm2}">Upload Image</a>
+<a th:href="@{/uploadImageForm}">Upload Image</a>
         <br/>
 <div th:each="image, i : ${images}">
         <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
