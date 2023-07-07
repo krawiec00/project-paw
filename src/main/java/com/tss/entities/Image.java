@@ -12,25 +12,22 @@ public class Image {
     @Lob
     private byte[] imageData;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-    
     private String title;
-    
     private String content;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // getters and setters
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -47,4 +44,21 @@ public class Image {
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
 }

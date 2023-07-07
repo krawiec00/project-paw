@@ -69,16 +69,18 @@
 
 <div class="content">
     <br/>
-    <div th:each="image, i : ${images}">
-        <div class="card">
-            <div class="card-body">
-                <h4 th:text="${titles[i.index]}"></h4>
-                <p th:text="${contents[i.index]}"></p>
-                <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
-            </div>
-        </div>
+    
+        <div class="card" th:each="image, i : ${images}">
+    <div class="card-body">
+        <h4 th:text="${titles[i.index]}"></h4>
+        <p th:text="${contents[i.index]}"></p>
+        <p><strong>Uploaded by: </strong><span th:text="${usernames[i.index]}"></span></p>
+        <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
     </div>
 </div>
+    
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

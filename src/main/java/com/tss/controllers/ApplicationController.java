@@ -1,6 +1,7 @@
 package com.tss.controllers;
 
 import com.tss.entities.Image;
+import com.tss.entities.User;
 import com.tss.repositories.ImageRepository;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -49,29 +50,42 @@ public class ApplicationController {
     }
 
     @GetMapping("/user")
-    public String user(Model model) {
-        imageModel(model);
+    public String user(Model model,Authentication authentication) {
+        imageModel(model,authentication);
         return "user";
     }
 
     @GetMapping("/admin")
-    public String admin(Model model) {
-        imageModel(model);
+    public String admin(Model model,Authentication authentication) {
+        imageModel(model,authentication);
         return "admin";
     }
 
-    private void imageModel(Model model) {
-        List<Image> images = imageRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        List<String> base64Images = new ArrayList<>();
+    private void imageModel(Model model, Authentication authentication) {
+    List<Image> images = imageRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    List<String> base64Images = new ArrayList<>();
+    List<String> usernames = new ArrayList<>(); // lista loginów użytkowników
+    List<String> titles = new ArrayList<>(); // lista tytułów
 
-        for (Image image : images) {
-            byte[] imageData = image.getImageData();
-            String base64Image = Base64.getEncoder().encodeToString(imageData);
-            base64Images.add(base64Image);
+    for (Image image : images) {
+        byte[] imageData = image.getImageData();
+        String base64Image = Base64.getEncoder().encodeToString(imageData);
+        base64Images.add(base64Image);
+        
+        User user = image.getUser();
+        if (user != null) {
+            usernames.add(user.getUserName()); // dodaj login użytkownika do listy
+        } else {
+            usernames.add(""); // jeśli użytkownik nie jest przypisany, dodaj pusty ciąg znaków
         }
-
-        model.addAttribute("images", base64Images);
-        model.addAttribute("titles", images.stream().map(Image::getTitle).collect(Collectors.toList()));
-        model.addAttribute("contents", images.stream().map(Image::getContent).collect(Collectors.toList()));
+        titles.add(image.getTitle()); // dodaj tytuł do listy
     }
+
+    model.addAttribute("images", base64Images);
+    model.addAttribute("titles", titles);
+    model.addAttribute("contents", images.stream().map(Image::getContent).collect(Collectors.toList()));
+    model.addAttribute("usernames", usernames); // przekaż listę loginów użytkowników do widoku
+}
+
+
 }

@@ -1,7 +1,10 @@
 package com.tss.controllers;
 
+import com.tss.entities.Image;
 import com.tss.entities.User;
+import com.tss.repositories.ImageRepository;
 import com.tss.repositories.UserRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 class UserController {
 
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository,ImageRepository imageRepository) {
         this.userRepository = userRepository;
+        this.imageRepository=imageRepository;
 
     }
 
@@ -53,5 +58,20 @@ class UserController {
         userRepository.delete(user);
         return "redirect:/adminPanel";
     }
+    @GetMapping("/deleteUserPosts/{id}")
+public String deleteUserPosts(@PathVariable("id") int id) {
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
+    // Pobierz wszystkie zdjęcia przypisane do użytkownika
+    List<Image> userImages = imageRepository.findAllByUser(user);
+
+    // Usuń wszystkie zdjęcia użytkownika
+    imageRepository.deleteAll(userImages);
+
+    return "redirect:/adminPanel";
+}
+
+
+    
 }
