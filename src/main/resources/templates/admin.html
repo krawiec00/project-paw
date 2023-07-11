@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-    <style>
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 9999;
-            background-color: #343a40; /* ciemny kolor paska */
-        }
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <style>
+            .navbar {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                z-index: 9999;
+                background-color: #343a40; /* ciemny kolor paska */
+            }
 
-        .navbar .nav-link {
-            color: #fff; /* białe przyciski na pasku */
-        }
+            .navbar .nav-link {
+                color: #fff; /* białe przyciski na pasku */
+            }
 
-        .navbar-brand {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-right: -50%;
-            text-align: center;
-            width: auto;
-        }
+            .navbar-brand {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-right: -50%;
+                text-align: center;
+                width: auto;
+            }
 
-        .content {
-            margin-top: 70px; /* to make space for the fixed navbar */
-            text-align: center;
-            max-width: 500px; /* maksymalna szerokość kontenerów */
-            margin-left: auto;
-            margin-right: auto;
-        }
+            .content {
+                margin-top: 70px; /* to make space for the fixed navbar */
+                text-align: center;
+                max-width: 500px; /* maksymalna szerokość kontenerów */
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-        .content .card {
-            border: none;
-            margin-bottom: 20px;
-            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
-        }
+            .content .card {
+                border: none;
+                margin-bottom: 20px;
+                box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+            }
 
-        .image {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 100%; /* maksymalny rozmiar zdjęcia */
-            height: auto; /* zachowanie proporcji */
-        }
-    </style>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!-- navbar-dark dla ciemnego paska -->
-    <a class="navbar-brand" href="#">BLOG</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/adminPanel}">Lista użytkowników</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/uploadImageForm}">Upload Image</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+            .image {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 100%; 
+                height: auto; 
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!-- navbar-dark dla ciemnego paska -->
+            <a class="navbar-brand" href="#">BLOG</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/uploadImageForm}">Dodaj post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/adminPanel}">Lista użytkowników</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-<div class="content">
-    <br/>
-    
-        <div class="card" th:each="image, i : ${images}">
-    <div class="card-body">
-        <h4 th:text="${titles[i.index]}"></h4>
-        <p th:text="${contents[i.index]}"></p>
-        <p><strong>Uploaded by: </strong><span th:text="${usernames[i.index]}"></span></p>
-        <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
-    </div>
-</div>
-    
-</div>
+        <div class="content">
+            <br/>
+
+            <div class="card" th:each="image, i : ${images}">
+                <div class="card-body">
+                    <h4 th:text="${titles[i.index]}"></h4>
+                    <p><strong>Autor: </strong><span th:text="${usernames[i.index]}"></span></p>
+                    <p th:text="${contents[i.index]}"></p>
+                    <img th:src="@{'data:image/jpeg;base64,' + ${image}}" class="image" alt="Image"/>
+                </div>
+            </div>
+
+        </div>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
 </html>

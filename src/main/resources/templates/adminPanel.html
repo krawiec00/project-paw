@@ -8,6 +8,12 @@
         th, td {
             border: 1px solid black;
             padding: 8px;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
     </style>
 </head>
@@ -29,15 +35,21 @@
                     <tr th:each="user : ${users}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.userName}"></td>
-                        <td th:text="${user.roles}"></td>
-                        <td th:text="${user.active}"></td>
+                        <td>
+                            <span th:if="${user.roles.contains('ROLE_USER')}">USER</span>
+                            <span th:if="${user.roles.contains('ROLE_ADMIN')}">ADMIN</span>
+                        </td>
+                        <td>
+                            <span th:if="${user.active}">TAK</span>
+                            <span th:unless="${user.active}">NIE</span>
+                        </td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a th:href="@{/showEditUserForm/{id}(id=${user.id})}">
-                                    <button class="btn btn-primary btn-sm">Edytuj</button>
+                                    <button class="btn btn-primary btn-sm mr-2">Edytuj</button>
                                 </a>
                                 <a th:href="@{/deleteUser/{id}(id=${user.id})}">
-                                    <button class="btn btn-danger btn-sm">Usuń</button>
+                                    <button class="btn btn-danger btn-sm mr-2">Usuń</button>
                                 </a>
                                 <a th:href="@{/deleteUserPosts/{id}(id=${user.id})}">
                                     <button class="btn btn-danger btn-sm">Usuń zdjęcia</button>
