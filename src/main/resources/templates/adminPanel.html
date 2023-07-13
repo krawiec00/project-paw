@@ -48,7 +48,7 @@
                                 <a th:href="@{/showEditUserForm/{id}(id=${user.id})}">
                                     <button class="btn btn-primary btn-sm mr-2">Edytuj</button>
                                 </a>
-                                <a th:href="@{/deleteUser/{id}(id=${user.id})}">
+                                <a th:href="@{/deleteUser/{id}(id=${user.id})}" th:data-username="${user.userName}" onclick="return confirm('Czy na pewno chcesz usunąć konto użytkownika: ' + this.getAttribute('data-username') + '?');">
                                     <button class="btn btn-danger btn-sm mr-2">Usuń</button>
                                 </a>
                                 <a th:href="@{/deleteUserPosts/{id}(id=${user.id})}">
@@ -60,6 +60,8 @@
                 </tbody>
             </table>
         </div>
+        <br/>
+        
         <br/>
         <a href="/ProjektPAW/admin" class="btn btn-secondary">Strona główna</a><br/>
     </div>
