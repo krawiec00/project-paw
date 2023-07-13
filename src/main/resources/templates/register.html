@@ -34,7 +34,7 @@
                                         type="text"
                                         id="username"
                                         name="username"
-                                        class="form-control" placeholder="Podaj login"/>
+                                        class="form-control" placeholder="Podaj login" required="required" minlength="3"/>
                                 </div>
 
                                 <div class="form-group mb-3">
@@ -43,9 +43,9 @@
                                         type="password"
                                         id="password"
                                         name="password"
-                                        class="form-control"
-                                        placeholder="Podaj hasło"
-                                        />
+                                        class="form-control" required="required" minlength="3"
+                                        placeholder="Podaj hasło"/>
+                                    <small id="charCount" >3 znaki minimum</small>
                                 </div>
                                 <div class="form-group mb-3">
                                     <button type="submit" class="btn btn-primary" >Rejestruj</button>
