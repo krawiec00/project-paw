@@ -61,8 +61,12 @@
                         <a class="nav-link" th:href="@{/adminPanel}">Lista użytkowników</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/deleteAccountAdmin}" onclick="return confirm('Czy na pewno chcesz usunąć swoje konto?')">Usuń konto</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
                     </li>
+                    
                 </ul>
             </div>
         </nav>

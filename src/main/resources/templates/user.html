@@ -58,6 +58,9 @@
                         <a class="nav-link" th:href="@{/uploadImageForm}">Dodaj post</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" th:href="@{/deleteAccount}" onclick="return confirm('Czy na pewno chcesz usunąć swoje konto?')">Usuń konto</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
                     </li>
                 </ul>
