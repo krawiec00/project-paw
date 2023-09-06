@@ -25,24 +25,27 @@ public class RegisterController {
         return "register";
     }
 
-@PostMapping
+    @PostMapping
     public String registerUser(String username, String password) {
         // Sprawdź, czy istnieje już użytkownik o podanej nazwie użytkownika
         Optional<User> existingUser = userRepository.findByUserName(username);
         if (existingUser.isPresent()) {
-            // Użytkownik o podanej nazwie użytkownika już istnieje, obsłuż ten przypadek
-            // Możesz wyświetlić odpowiedni komunikat lub przekierować na stronę błędu
+            // Użytkownik o podanej nazwie użytkownika już istnieje
+            // Przygotowanie do obsługi tego przypadku, np. wyświetlenie komunikatu lub przekierowanie na stronę błędu
             return "redirect:/register?error";
         }
 
+        // Tworzenie nowego użytkownika
         User newUser = new User();
         newUser.setUserName(username);
-        newUser.setPassword(passwordEncoder.encode(password));
-        newUser.setActive(true);
-        newUser.setRoles("ROLE_USER");
+        newUser.setPassword(passwordEncoder.encode(password)); // Hasło jest kodowane przed zapisaniem
+        newUser.setActive(true); // Ustawienie aktywności użytkownika na true
+        newUser.setRoles("ROLE_USER"); // Przypisanie roli "ROLE_USER"
 
+        // Zapisanie nowego użytkownika w repozytorium (bazie danych)
         userRepository.save(newUser);
 
+        // Po pomyślnym zarejestrowaniu przekierowanie na stronę logowania
         return "redirect:/login";
     }
 }

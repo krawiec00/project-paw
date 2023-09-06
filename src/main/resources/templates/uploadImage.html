@@ -31,8 +31,8 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Treść:</label>
-                        <textarea class="form-control" id="content" name="content" placeholder="Treść" rows="5" maxlength="255"></textarea>
-                        <small id="charCount" class="form-text text-muted">0/255 characters</small>
+                        <textarea class="form-control" id="content" name="content" placeholder="Treść" rows="5" maxlength="1000"></textarea>
+                        <small id="charCount" class="form-text text-muted">0/1000 characters</small>
                     </div>
                     <button type="submit" class="btn btn-primary">Udostępnij</button>
                 </form>
@@ -49,11 +49,11 @@
 
         contentTextarea.addEventListener('input', function () {
             var currentLength = contentTextarea.value.length;
-            charCount.textContent = currentLength + '/255 characters';
+            charCount.textContent = currentLength + '/1000 characters';
 
-            if (currentLength > 255) {
-                contentTextarea.value = contentTextarea.value.substring(0, 255);
-                charCount.textContent = '255/255 characters';
+            if (currentLength > 1000) {
+                contentTextarea.value = contentTextarea.value.substring(0, 1000);
+                charCount.textContent = '1000/1000 characters';
             }
         });
     </script>

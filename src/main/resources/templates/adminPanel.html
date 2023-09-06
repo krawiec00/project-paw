@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-    <tr th:each="user : ${users}" th:unless="${user.userName == 'admin'}">
+    <tr th:each="user : ${users}" >
         <td th:text="${user.id}"></td>
         <td th:text="${user.userName}"></td>
         <td>
@@ -48,11 +48,11 @@
                 <a th:href="@{/showEditUserForm/{id}(id=${user.id})}">
                     <button class="btn btn-primary btn-sm mr-2">Edytuj</button>
                 </a>
-                <a th:href="@{/deleteUser/{id}(id=${user.id})}" th:data-username="${user.userName}" onclick="return confirm('Czy na pewno chcesz usunąć konto użytkownika: ' + this.getAttribute('data-username') + '?');">
+                <a th:href="@{/deleteUser/{id}(id=${user.id})}" th:unless="${user.userName == 'admin'}" th:data-username="${user.userName}" onclick="return confirm('Czy na pewno chcesz usunąć konto użytkownika: ' + this.getAttribute('data-username') + '?');">
                     <button class="btn btn-danger btn-sm mr-2">Usuń</button>
                 </a>
                 <a th:href="@{/deleteUserPosts/{id}(id=${user.id})}">
-                    <button class="btn btn-danger btn-sm">Usuń zdjęcia</button>
+                    <button class="btn btn-danger btn-sm">Usuń posty</button>
                 </a>
             </div>
         </td>

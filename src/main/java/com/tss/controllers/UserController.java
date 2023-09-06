@@ -23,9 +23,9 @@ class UserController {
     private final ImageRepository imageRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository,ImageRepository imageRepository) {
+    public UserController(UserRepository userRepository, ImageRepository imageRepository) {
         this.userRepository = userRepository;
-        this.imageRepository=imageRepository;
+        this.imageRepository = imageRepository;
 
     }
 
@@ -60,39 +60,29 @@ class UserController {
         userRepository.delete(user);
         return "redirect:/adminPanel";
     }
+
     @GetMapping("/deleteUserPosts/{id}")
-public String deleteUserPosts(@PathVariable("id") int id) {
-    User user = userRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    public String deleteUserPosts(@PathVariable("id") int id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-    // Pobierz wszystkie zdjęcia przypisane do użytkownika
-    List<Image> userImages = imageRepository.findAllByUser(user);
+        // Pobierz wszystkie zdjęcia przypisane do użytkownika
+        List<Image> userImages = imageRepository.findAllByUser(user);
 
-    // Usuń wszystkie zdjęcia użytkownika
-    imageRepository.deleteAll(userImages);
+        // Usuń wszystkie zdjęcia użytkownika
+        imageRepository.deleteAll(userImages);
 
-    return "redirect:/adminPanel";
-}
+        return "redirect:/adminPanel";
+    }
 
-@GetMapping("/deleteAccount")
-public String deleteAccount(Authentication authentication) {
-    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-    String username = userDetails.getUsername();
-    User user = userRepository.findByUserName(username)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid user: " + username));
-    userRepository.delete(user);
-    return "redirect:/login?accountDeleted";
-}
+    @GetMapping("/deleteAccount")
+    public String deleteAccount(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user: " + username));
+        userRepository.delete(user);
+        return "redirect:/login?accountDeleted";
+    }
 
-
-@GetMapping("/deleteAccountAdmin")
-public String deleteAccountAdmin(Authentication authentication) {
-    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-    String username = userDetails.getUsername();
-    User user = userRepository.findByUserName(username)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid user: " + username));
-    userRepository.delete(user);
-    return "redirect:/login?accountDeleted";
-}
-    
 }

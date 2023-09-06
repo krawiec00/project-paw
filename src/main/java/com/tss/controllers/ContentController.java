@@ -24,9 +24,9 @@ public class ContentController {
     private final UserRepository userRepository;
 
     @Autowired
-    public ContentController(ImageRepository imageRepository,UserRepository userRepository) {
+    public ContentController(ImageRepository imageRepository, UserRepository userRepository) {
         this.imageRepository = imageRepository;
-        this.userRepository=userRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/uploadImageForm")
@@ -36,31 +36,34 @@ public class ContentController {
     }
 
     @PostMapping("/uploadImage")
-public String uploadImage(@ModelAttribute("imageForm") ImageForm imageForm, Image image, Model model, Authentication authentication) {
-    try {
-        MultipartFile imageFile = imageForm.getImageFile();
-        byte[] imageData = imageFile.getBytes();
+    public String uploadImage(
+            @ModelAttribute("imageForm") ImageForm imageForm, // Przyjęcie danych z formularza
+            Image image, // Obiekt reprezentujący obraz
+            Model model, // Model Spring MVC używany do przekazywania danych do widoku
+            Authentication authentication // Informacje o uwierzytelnieniu użytkownika
+    ) {
+        try {
+            MultipartFile imageFile = imageForm.getImageFile(); // Pobranie przesłanego pliku obrazu
+            byte[] imageData = imageFile.getBytes(); // Konwersja pliku na tablicę bajtów
 
-        image.setImageData(imageData);
-        image.setTitle(image.getTitle());
-        image.setContent(image.getContent());
+            image.setImageData(imageData); // Ustawienie danych obrazu
+            image.setTitle(image.getTitle()); // Ustawienie tytułu obrazu
+            image.setContent(image.getContent()); // Ustawienie treści obrazu
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User user = userRepository.findByUserName(userDetails.getUsername()).orElse(null);
-            image.setUser(user);
+            // Sprawdzanie, czy użytkownik jest uwierzytelniony i przypisanie obrazu do użytkownika
+            if (authentication != null && authentication.isAuthenticated()) {
+                UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+                User user = userRepository.findByUserName(userDetails.getUsername()).orElse(null);
+                image.setUser(user); // Przypisanie użytkownika do obrazu
+            }
+            imageRepository.save(image); // Zapisanie obrazu w repozytorium
+        } catch (IOException e) {
+            // Obsługa wyjątku IOException, który może wystąpić podczas przetwarzania pliku
+            // Możesz dodać kod obsługi błędu lub zalogować informację o błędzie
         }
 
-        imageRepository.save(image);
-
-    } catch (IOException e) {
-        // Handle the exception
+        // Po przetworzeniu obrazu, przekierowanie na główną stronę
+        return "redirect:/";
     }
-    return "redirect:/";
-}
-
-
-
-
 
 }

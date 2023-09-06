@@ -25,21 +25,36 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/").permitAll()
-                .antMatchers("/register").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/") // Przekierowanie po pomyślnym zalogowaniu
-                .and()
-                .logout()
-                .logoutSuccessUrl("/login")
+protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        // Konfiguracja dostępu do ścieżki "/admin" - wymagane uprawnienia roli "ADMIN"
+        .antMatchers("/admin").hasRole("ADMIN")   
+        
+        // Konfiguracja dostępu do ścieżki "/user" - wymagane uprawnienia ról "ADMIN" lub "USER"
+        .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+        
+        // Konfiguracja dostępu do głównej ścieżki "/" - dostęp dla wszystkich (nawet niezalogowanych)
+        .antMatchers("/").permitAll()
+        
+        // Konfiguracja dostępu do ścieżki "/register" - dostęp dla wszystkich (nawet niezalogowanych)
+        .antMatchers("/register").permitAll()
+        
+        .and()
+        .formLogin()
+        // Konfiguracja strony logowania na ścieżkę "/login" - dostęp dla wszystkich (nawet niezalogowanych)
+        .loginPage("/login").permitAll()
+        
+        // Po pomyślnym zalogowaniu przekierowanie na główną ścieżkę "/"
+        .defaultSuccessUrl("/")
+        
+        .and()
+        .logout()
+        // Po wylogowaniu przekierowanie na stronę logowania "/login"
+        .logoutSuccessUrl("/login")
+        
+        // Konfiguracja żądania wylogowania poprzez dopasowanie ścieżki "/logout"
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-    }
+}
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
